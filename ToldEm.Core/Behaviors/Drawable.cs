@@ -20,16 +20,12 @@ namespace ToldEm.Core
         Right
     }
 
-    public class Alignment
+    public interface IAlignment : IValue
     {
-        public Alignment(HorizontalAlignment horizontal = HorizontalAlignment.Center, VerticalAlignment vertical = VerticalAlignment.Middle)
-        {
-            Vertical = vertical;
-            Horizontal = horizontal;
-        }
-
-        public HorizontalAlignment Horizontal { get; set; }
-        public VerticalAlignment Vertical { get; set; }
+        [Default("HorizontalAlignment.Center")]
+        HorizontalAlignment Horizontal { get; set; }
+        [Default("VerticalAlignment.Middle")]
+        VerticalAlignment Vertical { get; set; }
     }
 
     public enum FitType
@@ -41,25 +37,23 @@ namespace ToldEm.Core
 
     public interface IDrawable : IBehavior
     {
-        IScreenSize _ImageSize { get; set; }
-
         string ResourceUrl { get; }
         string ResourceName { get; }
 
         [Default("0")]
         int ZIndex { get; }
 
-        [Default("1, 1")]
-        GameSize Size { get; }
-        [Default("0, 0")]
-        GamePoint Anchor { get; }
-        [Default("0, 0")]
-        GamePoint Position { get; }
-
         [Default("Fit")]
         FitType FitType { get; }
-        [Default("Middle, Center")]
+        [Default("Center, Middle")]
         Alignment Alignment { get; }
+
+        GameBounds GetBounds();
+    }
+
+    internal interface IDrawableInner : IDrawable
+    {
+        IScreenSize _ImageSize { get; set; }
     }
 
 }

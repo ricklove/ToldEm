@@ -44,7 +44,7 @@ namespace ToldEm.Core
 
         private void DrawGraphics()
         {
-            var drawables = _game.Entities.Where(e => e.IsDrawable).OrderBy(d => d.ZIndex).Cast<IDrawable>().ToList();
+            var drawables = _game.Entities.Where(e => e.IsDrawable).OrderBy(d => d.ZIndex).Cast<IDrawableInner>().ToList();
 
             // Draw graphics
             _host.GraphicsEngine.BeginFrame();
@@ -80,8 +80,11 @@ namespace ToldEm.Core
                     d._ImageSize = _host.GraphicsEngine.GetImageSize(d.ResourceName);
                 }
 
-                var wTarget = d.Size.Width * unitSize;
-                var hTarget = d.Size.Height * unitSize;
+                var gameBounds = d.GetBounds();
+
+                // Size
+                var wTarget = gameBounds.Width * unitSize;
+                var hTarget = gameBounds.Height * unitSize;
 
                 var wRatio = wTarget / d._ImageSize.Width;
                 var hRatio = hTarget / d._ImageSize.Height;
@@ -101,14 +104,9 @@ namespace ToldEm.Core
 
                 var s = new ScreenSize() { Width = wActual, Height = hActual };
 
-                var gameLeftToAnchor = (1.0 + d.Anchor.X) * d.Size.Width / 2.0;
-                var gameTopToAnchor = (1.0 + d.Anchor.Y) * d.Size.Height / 2.0;
-
-                var gameLeft = d.Position.X - gameLeftToAnchor;
-                var gameTop = d.Position.Y - gameTopToAnchor;
-
-                var screenLeft = (gameLeft * unitSize) + (sSize.Width / 2.0);
-                var screenTop = (gameTop * unitSize) + (sSize.Height / 2.0);
+                // Top Left
+                var screenLeft = (gameBounds.Left * unitSize) + (sSize.Width / 2.0);
+                var screenTop = (gameBounds.Top * unitSize) + (sSize.Height / 2.0);
 
                 var widthGap = wTarget - wActual;
                 var heightGap = hTarget - hActual;
@@ -131,8 +129,8 @@ namespace ToldEm.Core
                 {
                     var pos = new ScreenPoint()
                     {
-                        X = (d.Position.X * unitSize) + (sSize.Width / 2.0),
-                        Y = (d.Position.Y * unitSize) + (sSize.Height / 2.0)
+                        X = ((d as IPlaceable).Position.X * unitSize) + (sSize.Width / 2.0),
+                        Y = ((d as IPlaceable).Position.Y * unitSize) + (sSize.Height / 2.0)
                     };
 
                     _host.GraphicsEngine.DrawDebugRectangle(new ScreenRect() { Point = pos, Size = new ScreenSize() { Width = 1, Height = 10 } });
