@@ -19,7 +19,7 @@ namespace BushRun
                      alignment: new Alignment(HorizontalAlignment.Center, VerticalAlignment.Bottom)
                  )
                  .MakePlaceable(
-                     size: new GameSize(4, 2),
+                     size: new GameSize(6, 2),
                      anchor: new GamePoint(0, -1),
                      position: new GamePoint(0, -1)
                      )

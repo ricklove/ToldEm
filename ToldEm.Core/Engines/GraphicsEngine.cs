@@ -88,7 +88,51 @@ namespace ToldEm.Core
 
                 var p = new ScreenPoint() { X = screenLeft + offsetLeft, Y = screenTop + offsetTop };
 
-                _host.GraphicsProvider.DrawImage(name, new ScreenRect() { Point = p, Size = s });
+                if (!(d as Entity).IsTileable)
+                {
+                    _host.GraphicsProvider.DrawImage(name, new ScreenRect() { Point = p, Size = s });
+                }
+                else
+                {
+                    // TODO: Prerender the tiled image with an overlap border to eliminate lines between images
+
+                    // Tile the drawings that are needed to fill the screen 
+                    // (The image should ensure that it fills the size at the tile edges)
+                    // Example: If tiling side-to-side, the image should fill and 
+                    // the width should be larger than the height porportional to the actual image size
+
+                    // Repeat the screen rect as needed to fill the screen in the tile direction
+                    var t = d as ITileable;
+
+                    // Tuncate figures to ints to eliminate lines
+                    p = new ScreenPoint() { X = (int)p.X, Y = (int)p.Y };
+                    s = new ScreenSize() { Width = (int)s.Width, Height = (int)s.Height };
+
+                    if (t.TileDirection == TileDirection.Horizontal)
+                    {
+                        var positions = new List<double>();
+
+                        // Start left of screen
+                        var start = p.X % s.Width;
+                        start -= s.Width;
+
+                        // Go past right of screen while adding
+                        while (start < sSize.Width)
+                        {
+                            positions.Add(start);
+                            start += s.Width;
+                        }
+
+                        // Draw each position
+                        positions.ForEach(p2 =>
+                            _host.GraphicsProvider.DrawImage(name, new ScreenRect() { Point = new ScreenPoint() { X = p2, Y = p.Y }, Size = s }));
+                    }
+                    else
+                    {
+                        // TODO: Implement vertical tiling
+                        throw new NotImplementedException();
+                    }
+                }
 
                 // Debug
                 if (IsDebugEnabled)
@@ -116,6 +160,6 @@ namespace ToldEm.Core
             _host.GraphicsProvider.EndFrame();
         }
 
-        
+
     }
 }

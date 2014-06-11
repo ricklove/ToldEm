@@ -17,7 +17,7 @@ What is the most important task to complete in this hour?
 - Add background
 - Flip y coordinates to be the same as a standard x-y plane (-1,-1) is bottom left
 
-### 6:32-
+### 6:32-7:15
 
 - Tile background
 
@@ -25,8 +25,7 @@ What is the most important task to complete in this hour?
 # FUTURE
 
 ## GameCore
-- Rename GraphicsEngine to GraphicsProvider
-- Add GraphicsEngine as part of GameCore that handles graphics using the Graphics Provider
+- Convert Screen Coordinates to use ints
 - Add SpineProvider
 - Add SoundProvider
 
