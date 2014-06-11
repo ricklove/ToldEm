@@ -39,7 +39,8 @@ namespace ToldEm.WPF
             _host = new WPFHost(cvsMain, doLog);
 
             var g = new ToldEm.Core.GameCore();
-            g.Setup(_host, new ToldEm.Core.Demo());
+//            g.Setup(_host, new ToldEm.Core.Demo());
+            g.Setup(_host, new BushRun.BushRunGame());
         }
     }
 }

@@ -37,7 +37,7 @@ namespace ToldEm.Core
         {
             //            _host.Log("Tick " + Math.Ceiling(totalMS));
 
-            _game.Entities.ForEach(e => e.Size.Width += 0.001);
+            //_game.Entities.ForEach(e => e.Size.Width += 0.001);
 
             DrawGraphics();
         }

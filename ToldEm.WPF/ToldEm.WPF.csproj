@@ -96,6 +96,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BushRun\BushRun.csproj">
+      <Project>{c3cf2473-0f9a-4f04-8990-042e234357e8}</Project>
+      <Name>BushRun</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ToldEm.Core\ToldEm.Core.csproj">
       <Project>{96e38731-db0a-42e3-84e4-04b8c8d43b95}</Project>
       <Name>ToldEm.Core</Name>

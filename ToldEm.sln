@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToldEm.Core", "ToldEm.Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToldEm.WPF", "ToldEm.WPF\ToldEm.WPF.csproj", "{15C5072B-6491-4BCB-ACB9-F5539F31FD9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BushRun", "BushRun\BushRun.csproj", "{C3CF2473-0F9A-4F04-8990-042E234357E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{15C5072B-6491-4BCB-ACB9-F5539F31FD9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15C5072B-6491-4BCB-ACB9-F5539F31FD9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15C5072B-6491-4BCB-ACB9-F5539F31FD9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3CF2473-0F9A-4F04-8990-042E234357E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3CF2473-0F9A-4F04-8990-042E234357E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3CF2473-0F9A-4F04-8990-042E234357E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3CF2473-0F9A-4F04-8990-042E234357E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
