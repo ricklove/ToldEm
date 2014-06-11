@@ -21,7 +21,8 @@ namespace ToldEm.Core
                 .MakePlaceable(
                     size: new GameSize(1, 1),
                     anchor: new GamePoint(),
-                    position: new GamePoint())
+                    position: new GamePoint()
+                    )
                 );
 
             Entities.Add(new Entity()
@@ -35,7 +36,8 @@ namespace ToldEm.Core
                 .MakePlaceable(
                     size: new GameSize(2, 1),
                     anchor: new GamePoint(),
-                    position: new GamePoint(0.5, 0))
+                    position: new GamePoint(0.5, 0)
+                    )
                 );
 
             Entities.Add(new Entity()
@@ -49,19 +51,27 @@ namespace ToldEm.Core
                .MakePlaceable(
                    size: new GameSize(0.25, 0.25),
                    anchor: new GamePoint(-1, -1),
-                   position: new GamePoint(-1, -1))
+                   position: new GamePoint(-1, -1)
+                   )
                );
 
+            Entities.Add(Entities.Last().Clone().MakePlaceable(
+                    size: new GameSize(0.25, 0.25),
+                    anchor: new GamePoint(-1, 1),
+                    position: new GamePoint(-1, 1)
+                    )
+                );
+
             //Entities.Add(new Entity()
             //{
             //    ResourceName = "Lion",
             //    ResourceUrl = "lion.png",
             //    ZIndex = 0,
-            //    Size = new GameSize(0.25, 0.25),
+            //    Size = new IGameSize(0.25, 0.25),
             //    Alignment = new Alignment(HorizontalAlignment.Left, VerticalAlignment.Bottom),
-            //    Anchor = new GamePoint(-1, 1),
+            //    Anchor = new IGamePoint(-1, 1),
             //    FitType = FitType.Fit,
-            //    Position = new GamePoint(-1, 1)
+            //    Position = new IGamePoint(-1, 1)
             //});
 
             //Entities.Add(new Entity()
@@ -69,11 +79,11 @@ namespace ToldEm.Core
             //    ResourceName = "Lion",
             //    ResourceUrl = "lion.png",
             //    ZIndex = 0,
-            //    Size = new GameSize(0.25, 0.25),
+            //    Size = new IGameSize(0.25, 0.25),
             //    Alignment = new Alignment(HorizontalAlignment.Right, VerticalAlignment.Top),
-            //    Anchor = new GamePoint(1, -1),
+            //    Anchor = new IGamePoint(1, -1),
             //    FitType = FitType.Fit,
-            //    Position = new GamePoint(1, -1)
+            //    Position = new IGamePoint(1, -1)
             //});
 
             //Entities.Add(new Entity()
@@ -81,11 +91,11 @@ namespace ToldEm.Core
             //    ResourceName = "Lion",
             //    ResourceUrl = "lion.png",
             //    ZIndex = 0,
-            //    Size = new GameSize(0.25, 0.25),
+            //    Size = new IGameSize(0.25, 0.25),
             //    Alignment = new Alignment(HorizontalAlignment.Right, VerticalAlignment.Bottom),
-            //    Anchor = new GamePoint(1, 1),
+            //    Anchor = new IGamePoint(1, 1),
             //    FitType = FitType.Fit,
-            //    Position = new GamePoint(1, 1)
+            //    Position = new IGamePoint(1, 1)
             //});
         }
     }

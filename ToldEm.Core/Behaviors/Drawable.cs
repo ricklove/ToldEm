@@ -45,6 +45,7 @@ namespace ToldEm.Core
 
         [Default("Fit")]
         FitType FitType { get; }
+
         [Default("Center, Middle")]
         Alignment Alignment { get; }
 

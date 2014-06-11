@@ -153,11 +153,13 @@ namespace ToldEm.Core
 {{
 var c = new Entity();
 {0}
+{1}
 return c;
 }}
 ";
 
-            var cloneItemTemplate = "c.{0} = {0};\r\n";
+            var cloneItemTemplate = "c.{0} = {1} {0}{2};\r\n";
+            var cloneIsItemTemplate = "c.Is{0} = Is{0};\r\n";
 
             var isTemplate = "public bool Is{0} {{ get; private set; }}\r\n";
             var makeTemplate = @"public Entity Make{0}({1})
@@ -208,8 +210,22 @@ return c;
             var propList = allProperties.Aggregate(new StringBuilder(), (s, p) => s.AppendFormat(propTemplate, p.Properties[0].PropertyType.Name, p.Name));
 
             // Clone Props
-            var cloneStr = string.Format(cloneTemplate,
-                allProperties.Aggregate(new StringBuilder(), (s, p) => s.AppendFormat(cloneItemTemplate, p.Name)));
+            var cloneIsValues = behaviors
+                .Where(b => b.IsPublic)
+                .Aggregate(new StringBuilder(), (s, b) => s.AppendFormat(cloneIsItemTemplate, b.Name.Substring(1)));
+
+            var cloneStr = string.Format(cloneTemplate, cloneIsValues,
+                allProperties
+                .Where(p => p.Properties.First().DeclaringType.IsPublic)
+                .Aggregate(new StringBuilder(), (s, p) =>
+                {
+                    var prop = p.Properties[0];
+                    var isClonable = typeof(ICloneable).IsAssignableFrom(prop.PropertyType);
+                    var castStr = isClonable ? ("(" + prop.PropertyType.Name + ")") : "";
+                    var dotCloneStr = isClonable ? ".Clone()" : "";
+
+                    return s.AppendFormat(cloneItemTemplate, p.Name, castStr, dotCloneStr);
+                }));
 
             var classStr = string.Format(classTemplate, behaviorList, cloneStr, isList, makeList, propList);
 
@@ -219,7 +235,7 @@ return c;
 
 
 
-  
+
 
     #endregion
 }
