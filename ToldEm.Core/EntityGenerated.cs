@@ -74,7 +74,6 @@ namespace ToldEm.Core
             c.Anchor = (IGamePoint)Anchor.Clone();
             c.Position = (IGamePoint)Position.Clone();
             c.ResourceUrl = (String)ResourceUrl.Clone();
-            c.ResourceName = (String)ResourceName.Clone();
             c.ZIndex = ZIndex;
             c.FitType = FitType;
             c.Alignment = (Alignment)Alignment.Clone();
@@ -99,10 +98,9 @@ namespace ToldEm.Core
             return this;
         }
 
-        public Entity MakeDrawable(String resourceUrl, String resourceName, Int32 zIndex, FitType fitType, Alignment alignment)
+        public Entity MakeDrawable(String resourceUrl, Int32 zIndex, FitType fitType, Alignment alignment)
         {
             ResourceUrl = resourceUrl;
-            ResourceName = resourceName;
             ZIndex = zIndex;
             FitType = fitType;
             Alignment = alignment;
@@ -118,7 +116,6 @@ namespace ToldEm.Core
         public IGamePoint Anchor { get; set; }
         public IGamePoint Position { get; set; }
         public String ResourceUrl { get; set; }
-        public String ResourceName { get; set; }
         public Int32 ZIndex { get; set; }
         public FitType FitType { get; set; }
         public Alignment Alignment { get; set; }

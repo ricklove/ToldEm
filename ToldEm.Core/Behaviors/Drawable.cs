@@ -38,7 +38,6 @@ namespace ToldEm.Core
     public interface IDrawable : IBehavior
     {
         string ResourceUrl { get; }
-        string ResourceName { get; }
 
         [Default("0")]
         int ZIndex { get; }

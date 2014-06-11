@@ -42,7 +42,7 @@
     <Compile Include="Behaviors\Placeable.cs" />
     <Compile Include="Behaviors\Drawable.cs" />
     <Compile Include="EntityGenerated.cs" />
-    <Compile Include="Demo.cs" />
+    <Content Include="Demo.cs.txt" />
     <Compile Include="Entity.cs" />
     <Compile Include="GameCore.cs" />
     <Compile Include="Game.cs" />

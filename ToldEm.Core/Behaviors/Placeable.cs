@@ -35,7 +35,7 @@ namespace ToldEm.Core
         public double Left { get; set; }
         public double Top { get; set; }
         public double Right { get { return Left + Width; } }
-        public double Bottom { get { return Top + Height; } }
+        public double Bottom { get { return Top - Height; } }
 
         public double Width { get; set; }
         public double Height { get; set; }
@@ -59,13 +59,15 @@ namespace ToldEm.Core
         public GameBounds GetBounds()
         {
             var boxLeftToAnchor = Anchor.X + 1.0;
-            var boxTopToAnchor = Anchor.Y + 1.0;
+            var boxBottomToAnchor = Anchor.Y + 1.0;
 
             var gameLeftToAnchor = boxLeftToAnchor * Size.Width / 2.0;
-            var gameTopToAnchor = boxTopToAnchor * Size.Height / 2.0;
+            var gameBottomToAnchor = boxBottomToAnchor * Size.Height / 2.0;
 
             var gameLeft = Position.X - gameLeftToAnchor;
-            var gameTop = Position.Y - gameTopToAnchor;
+            var gameBottom = Position.Y - gameBottomToAnchor;
+
+            var gameTop = gameBottom + Size.Height;
 
             return new GameBounds(gameLeft, gameTop, Size.Width, Size.Height);
         }

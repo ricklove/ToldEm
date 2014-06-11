@@ -13,16 +13,15 @@ namespace BushRun
         {
             Entities.Add(new Entity()
                  .MakeDrawable(
-                     resourceUrl: "lion.png",
-                     resourceName: "Lion",
-                     zIndex: -10,
-                     fitType: FitType.Fit,
-                     alignment: new Alignment(HorizontalAlignment.Center, VerticalAlignment.Middle)
+                     resourceUrl: "Data/background.jpg",
+                     zIndex: -1000,
+                     fitType: FitType.Fill,
+                     alignment: new Alignment(HorizontalAlignment.Center, VerticalAlignment.Bottom)
                  )
                  .MakePlaceable(
-                     size: new GameSize(2, 1),
-                     anchor: new GamePoint(),
-                     position: new GamePoint(0.5, 0)
+                     size: new GameSize(4, 2),
+                     anchor: new GamePoint(0, -1),
+                     position: new GamePoint(0, -1)
                      )
                  );
         }

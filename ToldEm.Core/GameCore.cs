@@ -25,11 +25,11 @@ namespace ToldEm.Core
             _game.Setup();
 
             // Create assets
-            var drawables = _game.Entities.Where(e => e.IsDrawable).OrderBy(d => d.ZIndex).ToList();
+            var drawables = _game.Entities.Where(e => e.IsDrawable).OrderBy(d => d.ZIndex).Cast<IDrawableInner>().ToList();
             drawables.ForEach(d =>
             {
-                _host.GraphicsEngine.RegisterImageResource(d.ResourceUrl, d.ResourceName);
-                _host.GraphicsEngine.LoadImageResource(d.ResourceName);
+                _host.GraphicsEngine.RegisterImageResource(d.ResourceUrl, d.ResourceUrl);
+                _host.GraphicsEngine.LoadImageResource(d.ResourceUrl);
             });
         }
 
@@ -73,11 +73,11 @@ namespace ToldEm.Core
 
             drawables.ForEach(d =>
             {
-                var name = d.ResourceName;
+                var name = d.ResourceUrl;
 
                 if (d._ImageSize == null)
                 {
-                    d._ImageSize = _host.GraphicsEngine.GetImageSize(d.ResourceName);
+                    d._ImageSize = _host.GraphicsEngine.GetImageSize(d.ResourceUrl);
                 }
 
                 var gameBounds = d.GetBounds();
@@ -104,10 +104,7 @@ namespace ToldEm.Core
 
                 var s = new ScreenSize() { Width = wActual, Height = hActual };
 
-                // Top Left
-                var screenLeft = (gameBounds.Left * unitSize) + (sSize.Width / 2.0);
-                var screenTop = (gameBounds.Top * unitSize) + (sSize.Height / 2.0);
-
+                // Alignment
                 var widthGap = wTarget - wActual;
                 var heightGap = hTarget - hActual;
 
@@ -119,18 +116,22 @@ namespace ToldEm.Core
                     : d.Alignment.Vertical == VerticalAlignment.Middle ? (heightGap) * 0.5
                     : heightGap;
 
+                // Top Left
+                var screenLeft = (gameBounds.Left * unitSize) + (sSize.Width / 2.0);
+                var screenTop = (-gameBounds.Top * unitSize) + (sSize.Height / 2.0);
+
                 var p = new ScreenPoint() { X = screenLeft + offsetLeft, Y = screenTop + offsetTop };
 
                 _host.GraphicsEngine.DrawImage(name, new ScreenRect() { Point = p, Size = s });
 
                 // Debug
-                // Position Rect
                 if (IsDebugEnabled)
                 {
+                    // Position Rect
                     var pos = new ScreenPoint()
                     {
                         X = ((d as IPlaceable).Position.X * unitSize) + (sSize.Width / 2.0),
-                        Y = ((d as IPlaceable).Position.Y * unitSize) + (sSize.Height / 2.0)
+                        Y = (-(d as IPlaceable).Position.Y * unitSize) + (sSize.Height / 2.0)
                     };
 
                     _host.GraphicsEngine.DrawDebugRectangle(new ScreenRect() { Point = pos, Size = new ScreenSize() { Width = 1, Height = 10 } });
