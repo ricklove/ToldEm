@@ -56,4 +56,16 @@ namespace ToldEm.Core
         IScreenSize _ImageSize { get; set; }
     }
 
+
+    // Tiling
+    public enum TileDirection
+    {
+        Horizontal,
+        Vertical,
+    }
+
+    public interface ITileable : IBehavior
+    {
+        TileDirection TileDirection { get; }
+    }
 }

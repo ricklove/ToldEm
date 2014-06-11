@@ -14,9 +14,12 @@ What is the most important task to complete in this hour?
 
 ### 5:59-6:31
 
-- Create scrolling backgrounds
+- Add background
 - Flip y coordinates to be the same as a standard x-y plane (-1,-1) is bottom left
 
+### 6:32-
+
+- Tile background
 
 
 # FUTURE

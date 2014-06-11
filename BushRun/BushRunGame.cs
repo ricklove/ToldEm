@@ -23,6 +23,9 @@ namespace BushRun
                      anchor: new GamePoint(0, -1),
                      position: new GamePoint(0, -1)
                      )
+                 .MakeTileable(
+                    tileDirection: TileDirection.Horizontal
+                    )
                  );
         }
     }

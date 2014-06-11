@@ -61,7 +61,7 @@ namespace ToldEm.Core
 
     }
 
-    public partial class Entity : IEntity, IPlaceable, IDrawable, IDrawableInner
+    public partial class Entity : IEntity, IPlaceable, IDrawable, IDrawableInner, ITileable
     {
         // Clone
         public Entity Clone()
@@ -69,6 +69,7 @@ namespace ToldEm.Core
             var c = new Entity();
             c.IsPlaceable = IsPlaceable;
             c.IsDrawable = IsDrawable;
+            c.IsTileable = IsTileable;
 
             c.Size = (IGameSize)Size.Clone();
             c.Anchor = (IGamePoint)Anchor.Clone();
@@ -77,6 +78,7 @@ namespace ToldEm.Core
             c.ZIndex = ZIndex;
             c.FitType = FitType;
             c.Alignment = (Alignment)Alignment.Clone();
+            c.TileDirection = TileDirection;
 
             return c;
         }
@@ -85,6 +87,7 @@ namespace ToldEm.Core
         // Behaviors
         public bool IsPlaceable { get; private set; }
         public bool IsDrawable { get; private set; }
+        public bool IsTileable { get; private set; }
 
 
         // Make Behavior 
@@ -109,6 +112,14 @@ namespace ToldEm.Core
             return this;
         }
 
+        public Entity MakeTileable(TileDirection tileDirection)
+        {
+            TileDirection = tileDirection;
+
+            IsTileable = true;
+            return this;
+        }
+
 
 
         // Properties
@@ -120,6 +131,7 @@ namespace ToldEm.Core
         public FitType FitType { get; set; }
         public Alignment Alignment { get; set; }
         public IScreenSize _ImageSize { get; set; }
+        public TileDirection TileDirection { get; set; }
 
 
     }
