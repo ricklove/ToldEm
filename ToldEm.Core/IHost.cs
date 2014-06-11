@@ -9,7 +9,7 @@ namespace ToldEm.Core
     public interface IHost
     {
         void SetGameCore(IGameCore game);
-        IGraphicsEngine GraphicsEngine { get; }
+        IGraphicsProvider GraphicsProvider { get; }
         void Log(string message);
     }
 

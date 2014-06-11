@@ -11,7 +11,7 @@ using ToldEm.Core;
 
 namespace ToldEm.WPF
 {
-    class WPFGraphicsEngine : IGraphicsEngine
+    class WPFGraphicsProvider : IGraphicsProvider
     {
         private Canvas _target;
         private DrawingVisual _visual;
@@ -25,7 +25,7 @@ namespace ToldEm.WPF
         private Dictionary<string, Uri> _imageUris;
         private Dictionary<string, ImageSource> _images;
 
-        public WPFGraphicsEngine(Canvas target)
+        public WPFGraphicsProvider(Canvas target)
         {
             IsDebugEnabled = false;
 

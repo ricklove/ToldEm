@@ -28,8 +28,8 @@ namespace ToldEm.Core
             var drawables = _game.Entities.Where(e => e.IsDrawable).OrderBy(d => d.ZIndex).Cast<IDrawableInner>().ToList();
             drawables.ForEach(d =>
             {
-                _host.GraphicsEngine.RegisterImageResource(d.ResourceUrl, d.ResourceUrl);
-                _host.GraphicsEngine.LoadImageResource(d.ResourceUrl);
+                _host.GraphicsProvider.RegisterImageResource(d.ResourceUrl, d.ResourceUrl);
+                _host.GraphicsProvider.LoadImageResource(d.ResourceUrl);
             });
         }
 
@@ -47,16 +47,16 @@ namespace ToldEm.Core
             var drawables = _game.Entities.Where(e => e.IsDrawable).OrderBy(d => d.ZIndex).Cast<IDrawableInner>().ToList();
 
             // Draw graphics
-            _host.GraphicsEngine.BeginFrame();
+            _host.GraphicsProvider.BeginFrame();
 
-            var sSize = _host.GraphicsEngine.ScreenSize;
+            var sSize = _host.GraphicsProvider.ScreenSize;
             var squareSize = Math.Min(sSize.Width, sSize.Height);
             var unitSize = squareSize / 2.0;
 
             // Debug
             if (IsDebugEnabled)
             {
-                _host.GraphicsEngine.DrawDebugRectangle(new ScreenRect()
+                _host.GraphicsProvider.DrawDebugRectangle(new ScreenRect()
                 {
                     Point = new ScreenPoint()
                     {
@@ -77,7 +77,7 @@ namespace ToldEm.Core
 
                 if (d._ImageSize == null)
                 {
-                    d._ImageSize = _host.GraphicsEngine.GetImageSize(d.ResourceUrl);
+                    d._ImageSize = _host.GraphicsProvider.GetImageSize(d.ResourceUrl);
                 }
 
                 var gameBounds = d.GetBounds();
@@ -122,7 +122,7 @@ namespace ToldEm.Core
 
                 var p = new ScreenPoint() { X = screenLeft + offsetLeft, Y = screenTop + offsetTop };
 
-                _host.GraphicsEngine.DrawImage(name, new ScreenRect() { Point = p, Size = s });
+                _host.GraphicsProvider.DrawImage(name, new ScreenRect() { Point = p, Size = s });
 
                 // Debug
                 if (IsDebugEnabled)
@@ -134,20 +134,20 @@ namespace ToldEm.Core
                         Y = (-(d as IPlaceable).Position.Y * unitSize) + (sSize.Height / 2.0)
                     };
 
-                    _host.GraphicsEngine.DrawDebugRectangle(new ScreenRect() { Point = pos, Size = new ScreenSize() { Width = 1, Height = 10 } });
-                    _host.GraphicsEngine.DrawDebugRectangle(new ScreenRect() { Point = pos, Size = new ScreenSize() { Width = 10, Height = 1 } });
+                    _host.GraphicsProvider.DrawDebugRectangle(new ScreenRect() { Point = pos, Size = new ScreenSize() { Width = 1, Height = 10 } });
+                    _host.GraphicsProvider.DrawDebugRectangle(new ScreenRect() { Point = pos, Size = new ScreenSize() { Width = 10, Height = 1 } });
 
                     // Image Rect
-                    _host.GraphicsEngine.DrawDebugRectangle(new ScreenRect() { Point = p, Size = s });
+                    _host.GraphicsProvider.DrawDebugRectangle(new ScreenRect() { Point = p, Size = s });
 
                     // Box Rect
                     var boxTopLeft = new ScreenPoint() { X = screenLeft, Y = screenTop };
                     var boxSize = new ScreenSize() { Width = wTarget, Height = hTarget };
-                    _host.GraphicsEngine.DrawDebugRectangle(new ScreenRect() { Point = boxTopLeft, Size = boxSize });
+                    _host.GraphicsProvider.DrawDebugRectangle(new ScreenRect() { Point = boxTopLeft, Size = boxSize });
                 }
             });
 
-            _host.GraphicsEngine.EndFrame();
+            _host.GraphicsProvider.EndFrame();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ToldEm.Core
 {
-    public interface IGraphicsEngine
+    public interface IGraphicsProvider
     {
         IScreenSize ScreenSize { get; }
         IScreenSize GetImageSize(string resourceName);

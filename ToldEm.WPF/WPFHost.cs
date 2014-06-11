@@ -17,11 +17,11 @@ namespace ToldEm.WPF
         private Action<string> _doLog;
 
         public IGameCore Game { get; private set; }
-        public IGraphicsEngine GraphicsEngine { get; private set; }
+        public IGraphicsProvider GraphicsProvider { get; private set; }
 
         public WPFHost(Canvas target, Action<string> doLog)
         {
-            GraphicsEngine = new WPFGraphicsEngine(target);
+            GraphicsProvider = new WPFGraphicsProvider(target);
             _doLog = doLog;
         }
 
