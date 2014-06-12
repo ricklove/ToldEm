@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ToldEm.Core
 {
-    public class GraphicsEngine
+    class GraphicsEngine
     {
         public void DrawGraphics(IHost _host, IGame _game, bool IsDebugEnabled)
         {

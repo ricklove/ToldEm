@@ -17,7 +17,8 @@ namespace ToldEm.Core
     public interface IGameCore
     {
         void Setup(IHost host, IGame game);
-        void Tick(double totalMS);
+        void TickGraphics(double totalMS);
+        void TickLogic(double totalMS);
     }
 
     public interface IGame

@@ -4,7 +4,7 @@
 
 # Version 1
 
-## Hour 1
+## Period 1
 
 ### 2014-06-11 5:57-5:58 Plan
 
@@ -22,7 +22,7 @@ What is the most important task to complete in this hour?
 - Tile background
 
 
-## Hour 2
+## Period 2
 
 ### 2014-06-12 5:37-5:38 Plan
 
@@ -33,6 +33,15 @@ I will handle user input
 - Add input provider
 - Implement WPF Input Provider
 
+## Period 3
+
+### 9:35-9:36 Plan
+
+I will implement the input engine to process the input for the game.
+
+### 9:37-
+
+- 
 
 
 

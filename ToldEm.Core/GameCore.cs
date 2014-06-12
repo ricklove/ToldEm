@@ -12,6 +12,7 @@ namespace ToldEm.Core
         private IGame _game;
 
         private GraphicsEngine _graphicsEngine;
+        private InputEngine _inputEngine;
 
         public bool IsDebugEnabled { get; set; }
 
@@ -19,6 +20,7 @@ namespace ToldEm.Core
         {
             IsDebugEnabled = true;
             _graphicsEngine = new GraphicsEngine();
+            _inputEngine = new InputEngine();
 
             _host = host;
             _game = game;
@@ -36,15 +38,16 @@ namespace ToldEm.Core
             });
         }
 
-        public void Tick(double totalMS)
+        public void TickGraphics(double totalMS)
         {
-            //            _host.Log("Tick " + Math.Ceiling(totalMS));
-
-            _game.Entities.ForEach(e => e.Position.X -= 0.01);
-
             _graphicsEngine.DrawGraphics(_host, _game, IsDebugEnabled);
         }
 
-        
+        public void TickLogic(double totalMS)
+        {
+            //_host.Log("Tick " + Math.Ceiling(totalMS));
+            //_game.Entities.ForEach(e => e.Position.X -= 0.01);
+            _inputEngine.HandleInput(_host, _game);
+        }
     }
 }

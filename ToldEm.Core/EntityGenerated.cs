@@ -61,12 +61,13 @@ namespace ToldEm.Core
 
     }
 
-    public partial class Entity : IEntity, IPlaceable, IDrawable, IDrawableInner, ITileable
+    public partial class Entity : IEntity, IInputable, IPlaceable, IDrawable, IDrawableInner, ITileable
     {
         // Clone
         public Entity Clone()
         {
             var c = new Entity();
+            c.IsInputable = IsInputable;
             c.IsPlaceable = IsPlaceable;
             c.IsDrawable = IsDrawable;
             c.IsTileable = IsTileable;
@@ -85,12 +86,20 @@ namespace ToldEm.Core
 
 
         // Behaviors
+        public bool IsInputable { get; private set; }
         public bool IsPlaceable { get; private set; }
         public bool IsDrawable { get; private set; }
         public bool IsTileable { get; private set; }
 
 
         // Make Behavior 
+        public Entity MakeInputable()
+        {
+
+            IsInputable = true;
+            return this;
+        }
+
         public Entity MakePlaceable(IGameSize size, IGamePoint anchor, IGamePoint position)
         {
             Size = size;
