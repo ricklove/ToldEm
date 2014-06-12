@@ -48,7 +48,7 @@ namespace ToldEm.WPF
             if (Game != null)
             {
                 var elapsed = DateTime.Now - _startTime;
-                Game.TickGraphics(elapsed.TotalMilliseconds);
+                Game.TickGraphics(new GameTime(elapsed.TotalMilliseconds));
             }
         }
 

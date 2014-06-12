@@ -38,16 +38,16 @@ namespace ToldEm.Core
             });
         }
 
-        public void TickGraphics(double totalMS)
+        public void TickGraphics(GameTime gameTime)
         {
             _graphicsEngine.DrawGraphics(_host, _game, IsDebugEnabled);
         }
 
-        public void TickLogic(double totalMS)
+        public void TickLogic(GameTime gameTime)
         {
             //_host.Log("Tick " + Math.Ceiling(totalMS));
             //_game.Entities.ForEach(e => e.Position.X -= 0.01);
-            _inputEngine.HandleInput(_host, _game);
+            _inputEngine.HandleInput(_host, _game, gameTime);
         }
     }
 }

@@ -17,8 +17,32 @@ namespace ToldEm.Core
     public interface IGameCore
     {
         void Setup(IHost host, IGame game);
-        void TickGraphics(double totalMS);
-        void TickLogic(double totalMS);
+        void TickGraphics(GameTime totalMS);
+        void TickLogic(GameTime totalMS);
+    }
+
+    public class GameTime
+    {
+        public double TotalMilliseconds { get; private set; }
+        public GameTime(double totalMilliseconds)
+        {
+            TotalMilliseconds = totalMilliseconds;
+        }
+    }
+
+    public class GameTimeSpan
+    {
+        public double TotalMilliseconds { get; private set; }
+
+        public GameTimeSpan()
+        {
+            TotalMilliseconds = 0;
+        }
+
+        public GameTimeSpan(double totalMilliseconds)
+        {
+            TotalMilliseconds = totalMilliseconds;
+        }
     }
 
     public interface IGame

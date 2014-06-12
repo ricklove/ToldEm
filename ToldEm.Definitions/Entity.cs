@@ -35,7 +35,9 @@ namespace ToldEm.Core
     {
         public static string CreateAll()
         {
-            var allTemplate = @"using System;
+            var allTemplate = @"
+using System;
+using System.Collections.Generic;
 
 namespace ToldEm.Core
 {{

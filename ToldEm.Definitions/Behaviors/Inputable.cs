@@ -13,20 +13,27 @@ namespace ToldEm.Core
         bool HandlesKeyboardInput { get; }
         bool HandlesGlobalTouchInput { get; }
 
-        Action<IGameInputState> HandleInputCallback { get; }
+        Action<GameInputState> HandleInputCallback { get; }
     }
 
-    public interface IGameInputState
+    public class GameInputState
     {
-        IList<IGameInputValue> InputValues { get; }
+        public GameTime GameTime { get; private set; }
+        public IList<IGameInputValue> InputValues { get; set; }
+
+        public GameInputState( GameTime gameTime )
+        {
+            InputValues = new List<IGameInputValue>();
+            GameTime = gameTime;
+        }
     }
 
-    public interface IGameInputValue
+    public interface IGameInputValue : IValue
     {
         bool IsWithinBounds { get; }
         bool HasChanged { get; }
         InputChangeType ChangeType { get; }
-        TimeSpan TimeSinceDown { get; }
+        GameTimeSpan TimeSinceDown { get; }
 
         InputType Type { get; }
         IGamePoint Position { get; }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using System;
+using System.Collections.Generic;
 
 namespace ToldEm.Core
 {
@@ -19,6 +21,35 @@ namespace ToldEm.Core
         public object Clone()
         {
             return new Alignment(Horizontal, Vertical);
+        }
+
+    }
+    public class GameInputValue : IGameInputValue
+    {
+        public Boolean IsWithinBounds { get; set; }
+        public Boolean HasChanged { get; set; }
+        public InputChangeType ChangeType { get; set; }
+        public GameTimeSpan TimeSinceDown { get; set; }
+        public InputType Type { get; set; }
+        public IGamePoint Position { get; set; }
+        public KeyValue KeyValue { get; set; }
+
+
+        public GameInputValue(Boolean isWithinBounds, Boolean hasChanged, InputChangeType changeType, GameTimeSpan timeSinceDown, InputType type, IGamePoint position, KeyValue keyValue)
+        {
+            IsWithinBounds = isWithinBounds;
+            HasChanged = hasChanged;
+            ChangeType = changeType;
+            TimeSinceDown = timeSinceDown;
+            Type = type;
+            Position = position;
+            KeyValue = keyValue;
+
+        }
+
+        public object Clone()
+        {
+            return new GameInputValue(IsWithinBounds, HasChanged, ChangeType, TimeSinceDown, Type, Position, KeyValue);
         }
 
     }
@@ -79,7 +110,7 @@ namespace ToldEm.Core
             c.TileDirection = TileDirection;
             c.HandlesKeyboardInput = HandlesKeyboardInput;
             c.HandlesGlobalTouchInput = HandlesGlobalTouchInput;
-            c.HandleInputCallback = (Action<IGameInputState>)HandleInputCallback.Clone();
+            c.HandleInputCallback = (Action<GameInputState>)HandleInputCallback.Clone();
             c.Size = (IGameSize)Size.Clone();
             c.Anchor = (IGamePoint)Anchor.Clone();
             c.Position = (IGamePoint)Position.Clone();
@@ -115,7 +146,7 @@ namespace ToldEm.Core
             return this;
         }
 
-        public Entity MakeInputable(Boolean handlesKeyboardInput, Boolean handlesGlobalTouchInput, Action<IGameInputState> handleInputCallback)
+        public Entity MakeInputable(Boolean handlesKeyboardInput, Boolean handlesGlobalTouchInput, Action<GameInputState> handleInputCallback)
         {
             HandlesKeyboardInput = handlesKeyboardInput;
             HandlesGlobalTouchInput = handlesGlobalTouchInput;
@@ -146,7 +177,7 @@ namespace ToldEm.Core
         public TileDirection TileDirection { get; set; }
         public Boolean HandlesKeyboardInput { get; set; }
         public Boolean HandlesGlobalTouchInput { get; set; }
-        public Action<IGameInputState> HandleInputCallback { get; set; }
+        public Action<GameInputState> HandleInputCallback { get; set; }
         public IGameSize Size { get; set; }
         public IGamePoint Anchor { get; set; }
         public IGamePoint Position { get; set; }
