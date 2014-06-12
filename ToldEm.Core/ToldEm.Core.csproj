@@ -42,7 +42,7 @@
     <Compile Include="Engines\GraphicsEngine.cs" />
     <Compile Include="Engines\InputEngine.cs" />
     <Compile Include="EntityCalculatedValues\Entity.GetBounds.cs" />
-    <Compile Include="EntityGenerated.cs" />
+    <Compile Include="Entity.GEN.cs" />
     <Content Include="Demo.cs.txt" />
     <Compile Include="GameCore.cs" />
     <Compile Include="Game.cs" />

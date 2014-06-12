@@ -77,6 +77,9 @@ namespace ToldEm.Core
             c.FitType = FitType;
             c.Alignment = (IAlignment)Alignment.Clone();
             c.TileDirection = TileDirection;
+            c.HandlesKeyboardInput = HandlesKeyboardInput;
+            c.HandlesGlobalTouchInput = HandlesGlobalTouchInput;
+            c.HandleInputCallback = (Action<IGameInputState>)HandleInputCallback.Clone();
             c.Size = (IGameSize)Size.Clone();
             c.Anchor = (IGamePoint)Anchor.Clone();
             c.Position = (IGamePoint)Position.Clone();
@@ -112,8 +115,11 @@ namespace ToldEm.Core
             return this;
         }
 
-        public Entity MakeInputable()
+        public Entity MakeInputable(Boolean handlesKeyboardInput, Boolean handlesGlobalTouchInput, Action<IGameInputState> handleInputCallback)
         {
+            HandlesKeyboardInput = handlesKeyboardInput;
+            HandlesGlobalTouchInput = handlesGlobalTouchInput;
+            HandleInputCallback = handleInputCallback;
 
             IsInputable = true;
             return this;
@@ -138,6 +144,9 @@ namespace ToldEm.Core
         public IAlignment Alignment { get; set; }
         public IScreenSize _ImageSize { get; set; }
         public TileDirection TileDirection { get; set; }
+        public Boolean HandlesKeyboardInput { get; set; }
+        public Boolean HandlesGlobalTouchInput { get; set; }
+        public Action<IGameInputState> HandleInputCallback { get; set; }
         public IGameSize Size { get; set; }
         public IGamePoint Anchor { get; set; }
         public IGamePoint Position { get; set; }

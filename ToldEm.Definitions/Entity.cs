@@ -49,6 +49,32 @@ namespace ToldEm.Core
             return all;
         }
 
+        public static string GetFormattedTypeName(Type type)
+        {
+            var t = type;
+
+            if (!t.IsGenericType)
+                return t.Name;
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(t.Name.Substring(0, t.Name.LastIndexOf("`")));
+
+            var genericArguments = t.GetGenericArguments().ToList();
+            if (genericArguments.Any())
+            {
+                sb.Append("<");
+
+                var argList = genericArguments.Aggregate(new StringBuilder(), (sb2, a) => sb2.Append(GetFormattedTypeName(a) + ", "));
+
+                sb.Append(argList.ToString().Trim(", ".ToCharArray()));
+
+                sb.Append(">");
+            }
+
+            return sb.ToString();
+        }
+
         public static string CreateEntityValues()
         {
             var type = typeof(Generator);
@@ -86,7 +112,7 @@ namespace ToldEm.Core
                              let lowerName = char.ToLower(p.Name[0]) + p.Name.Substring(1)
                              let attributes = p.GetCustomAttributes(typeof(DefaultAttribute), false)
                              let defaultValue = attributes.Any() ? " = " + attributes.Cast<DefaultAttribute>().First().Value : ""
-                             select new { property = p, type = p.PropertyType.Name, name = p.Name, lowerName = lowerName, defaultValue = defaultValue };
+                             select new { property = p, type = GetFormattedTypeName(p.PropertyType), name = p.Name, lowerName = lowerName, defaultValue = defaultValue };
 
                 Func<string, string> doFormat = (template) =>
                 {
@@ -124,8 +150,8 @@ namespace ToldEm.Core
                     if (p2.PropertyType != p.Properties[0].PropertyType)
                     {
                         var message = string.Format("Incompatible Property Types: {0}.{1} is {2} and {3}.{4} is {5}",
-                            p.Properties[0].DeclaringType.Name, p.Properties[0].Name, p.Properties[0].PropertyType.Name,
-                            p2.DeclaringType.Name, p2.Name, p2.PropertyType.Name);
+                            GetFormattedTypeName(p.Properties[0].DeclaringType), p.Properties[0].Name, GetFormattedTypeName(p.Properties[0].PropertyType),
+                            GetFormattedTypeName(p2.DeclaringType), p2.Name, GetFormattedTypeName(p2.PropertyType));
 
                         throw new Exception(message);
                     }
@@ -195,7 +221,7 @@ return c;
                              let lowerName = char.ToLower(p.Name[0]) + p.Name.Substring(1)
                              let attributes = p.GetCustomAttributes(typeof(DefaultAttribute), false)
                              let defaultValue = attributes.Any() ? attributes.Cast<DefaultAttribute>().First().Value : ""
-                             select new { property = p, type = p.PropertyType.Name, name = p.Name, lowerName = lowerName, defaultValue = defaultValue };
+                             select new { property = p, type = GetFormattedTypeName(p.PropertyType), name = p.Name, lowerName = lowerName, defaultValue = defaultValue };
 
                 var args = pInfos.Aggregate(new StringBuilder(), (s2, p) =>
                 {
@@ -208,7 +234,7 @@ return c;
             });
 
             // Prop List
-            var propList = allProperties.Aggregate(new StringBuilder(), (s, p) => s.AppendFormat(propTemplate, p.Properties[0].PropertyType.Name, p.Name));
+            var propList = allProperties.Aggregate(new StringBuilder(), (s, p) => s.AppendFormat(propTemplate, GetFormattedTypeName(p.Properties[0].PropertyType), p.Name));
 
             // Clone Props
             var cloneIsValues = behaviors
@@ -223,7 +249,7 @@ return c;
                 {
                     var prop = p.Properties[0];
                     var isClonable = typeof(ICloneable).IsAssignableFrom(prop.PropertyType);
-                    var castStr = isClonable ? ("(" + prop.PropertyType.Name + ")") : "";
+                    var castStr = isClonable ? ("(" + GetFormattedTypeName(prop.PropertyType) + ")") : "";
                     var dotCloneStr = isClonable ? ".Clone()" : "";
 
                     return s.AppendFormat(cloneItemTemplate, p.Name, castStr, dotCloneStr);

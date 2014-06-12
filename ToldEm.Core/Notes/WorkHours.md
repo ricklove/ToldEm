@@ -44,10 +44,11 @@ I will implement the input engine to process the input for the game.
 - Add InputEngine
 - Move Entity Definitions and generation to separate project
 
-### 10:03-
+### 10:03-10:10
+### 10:14-
 
 - Implement InputEngine
-
+- Add Generics support to Entity Generator
 
 
 # FUTURE
