@@ -54,8 +54,14 @@ namespace ToldEm.Core
 
     public class ScreenPoint : IScreenPoint
     {
-        public double X { get; set; }
-        public double Y { get; set; }
+        public double X { get; private set; }
+        public double Y { get; private set; }
+
+        public ScreenPoint(double x, double y)
+        {
+            X = x;
+            Y = y;
+        }
     }
 
 }

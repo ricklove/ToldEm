@@ -47,8 +47,9 @@
     <Compile Include="Entity.cs" />
     <Compile Include="GameCore.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="IGraphicsProvider.cs" />
-    <Compile Include="IHost.cs" />
+    <Compile Include="Host\IInputProvider.cs" />
+    <Compile Include="Host\IGraphicsProvider.cs" />
+    <Compile Include="Host\IHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -22,14 +22,44 @@ What is the most important task to complete in this hour?
 - Tile background
 
 
+## Hour 2
+
+### 2014-06-12 5:37-5:38 Plan
+
+I will handle user input
+
+### 5:39-7:43
+
+- Add input provider
+- Implement WPF Input Provider
+
+
+
+
 # FUTURE
 
 ## GameCore
+- Add input provider
+	- Inputable (Handles Global Input from InputProvider)
+		- Priority
+		- Callback Handler
+	- Input Callback Parameters:
+		- Type
+			- Press (Mouse, Tap)
+			- Keyboard
+		- Values(If keyboard - supports multi-key, multi-touch)
+			- HasChanged (False if still holding, but a separate input value changed)
+			- Down, Hold, Up
+			- Value
+			- Position
+	- InputProvider (Must guarantee to send an Up for every Down)
+
 - Convert Screen Coordinates to use ints
 - Add SpineProvider
 - Add SoundProvider
 
 ## Bush Run
+- Allow input to control scrolling
 - Create Scrolling Backgrounds
 - Add Player Image
 - Add Lion Image

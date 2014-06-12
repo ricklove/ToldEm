@@ -53,6 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="WPFInputProvider.cs" />
     <Compile Include="WPFGraphicsProvider.cs" />
     <Compile Include="WPFHost.cs" />
     <Page Include="MainWindow.xaml">

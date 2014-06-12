@@ -24,11 +24,10 @@ namespace ToldEm.Core
             {
                 _host.GraphicsProvider.DrawDebugRectangle(new ScreenRect()
                 {
-                    Point = new ScreenPoint()
-                    {
-                        X = (sSize.Width - squareSize) / 2.0,
-                        Y = (sSize.Height - squareSize) / 2.0
-                    },
+                    Point = new ScreenPoint(
+                     (sSize.Width - squareSize) / 2.0,
+                     (sSize.Height - squareSize) / 2.0
+                    ),
                     Size = new ScreenSize()
                     {
                         Width = squareSize,
@@ -86,7 +85,7 @@ namespace ToldEm.Core
                 var screenLeft = (gameBounds.Left * unitSize) + (sSize.Width / 2.0);
                 var screenTop = (-gameBounds.Top * unitSize) + (sSize.Height / 2.0);
 
-                var p = new ScreenPoint() { X = screenLeft + offsetLeft, Y = screenTop + offsetTop };
+                var p = new ScreenPoint(screenLeft + offsetLeft, screenTop + offsetTop);
 
                 if (!(d as Entity).IsTileable)
                 {
@@ -105,7 +104,7 @@ namespace ToldEm.Core
                     var t = d as ITileable;
 
                     // Tuncate figures to ints to eliminate lines
-                    p = new ScreenPoint() { X = (int)p.X, Y = (int)p.Y };
+                    p = new ScreenPoint((int)p.X, (int)p.Y);
                     s = new ScreenSize() { Width = (int)s.Width, Height = (int)s.Height };
 
                     if (t.TileDirection == TileDirection.Horizontal)
@@ -125,7 +124,7 @@ namespace ToldEm.Core
 
                         // Draw each position
                         positions.ForEach(p2 =>
-                            _host.GraphicsProvider.DrawImage(name, new ScreenRect() { Point = new ScreenPoint() { X = p2, Y = p.Y }, Size = s }));
+                            _host.GraphicsProvider.DrawImage(name, new ScreenRect() { Point = new ScreenPoint(p2, p.Y), Size = s }));
                     }
                     else
                     {
@@ -138,11 +137,11 @@ namespace ToldEm.Core
                 if (IsDebugEnabled)
                 {
                     // Position Rect
-                    var pos = new ScreenPoint()
-                    {
-                        X = ((d as IPlaceable).Position.X * unitSize) + (sSize.Width / 2.0),
-                        Y = (-(d as IPlaceable).Position.Y * unitSize) + (sSize.Height / 2.0)
-                    };
+                    var pos = new ScreenPoint
+                    (
+                         ((d as IPlaceable).Position.X * unitSize) + (sSize.Width / 2.0),
+                         (-(d as IPlaceable).Position.Y * unitSize) + (sSize.Height / 2.0)
+                    );
 
                     _host.GraphicsProvider.DrawDebugRectangle(new ScreenRect() { Point = pos, Size = new ScreenSize() { Width = 1, Height = 10 } });
                     _host.GraphicsProvider.DrawDebugRectangle(new ScreenRect() { Point = pos, Size = new ScreenSize() { Width = 10, Height = 1 } });
@@ -151,7 +150,7 @@ namespace ToldEm.Core
                     _host.GraphicsProvider.DrawDebugRectangle(new ScreenRect() { Point = p, Size = s });
 
                     // Box Rect
-                    var boxTopLeft = new ScreenPoint() { X = screenLeft, Y = screenTop };
+                    var boxTopLeft = new ScreenPoint(screenLeft, screenTop);
                     var boxSize = new ScreenSize() { Width = wTarget, Height = hTarget };
                     _host.GraphicsProvider.DrawDebugRectangle(new ScreenRect() { Point = boxTopLeft, Size = boxSize });
                 }

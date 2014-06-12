@@ -18,10 +18,12 @@ namespace ToldEm.WPF
 
         public IGameCore Game { get; private set; }
         public IGraphicsProvider GraphicsProvider { get; private set; }
+        public IInputProvider InputProvider { get; private set; }
 
         public WPFHost(Canvas target, Action<string> doLog)
         {
             GraphicsProvider = new WPFGraphicsProvider(target);
+            InputProvider = new WPFInputProvider(target);
             _doLog = doLog;
         }
 
@@ -55,5 +57,8 @@ namespace ToldEm.WPF
         {
             _doLog(message);
         }
+
+
+
     }
 }

@@ -10,6 +10,7 @@ namespace ToldEm.Core
     {
         void SetGameCore(IGameCore game);
         IGraphicsProvider GraphicsProvider { get; }
+        IInputProvider InputProvider { get; }
         void Log(string message);
     }
 
