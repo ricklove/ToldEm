@@ -21,11 +21,22 @@ namespace ToldEm.Core
         public GameTime GameTime { get; private set; }
         public IList<IGameInputValue> InputValues { get; set; }
 
-        public GameInputState( GameTime gameTime )
+        public GameInputState(GameTime gameTime, IList<IGameInputValue> inputValues)
         {
-            InputValues = new List<IGameInputValue>();
             GameTime = gameTime;
+
+            InputValues = inputValues;
+            HasInput = InputValues.Any();
+            HasKeyboardInput = InputValues.Any(v => v.Type == InputType.Keyboard);
+
+            if (HasInput)
+            {
+                var breakdance = true;
+            }
         }
+
+        public bool HasInput { get; private set; }
+        public bool HasKeyboardInput { get; private set; }
     }
 
     public interface IGameInputValue : IValue

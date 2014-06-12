@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using ToldEm.Core;
@@ -20,10 +21,10 @@ namespace ToldEm.WPF
         public IGraphicsProvider GraphicsProvider { get; private set; }
         public IInputProvider InputProvider { get; private set; }
 
-        public WPFHost(Canvas target, Action<string> doLog)
+        public WPFHost(Window window, Canvas target, Action<string> doLog)
         {
             GraphicsProvider = new WPFGraphicsProvider(target);
-            InputProvider = new WPFInputProvider(target);
+            InputProvider = new WPFInputProvider(window);
             _doLog = doLog;
         }
 
@@ -49,6 +50,8 @@ namespace ToldEm.WPF
             {
                 var elapsed = DateTime.Now - _startTime;
                 Game.TickGraphics(new GameTime(elapsed.TotalMilliseconds));
+                
+                Game.TickLogic(new GameTime(elapsed.TotalMilliseconds));
             }
         }
 

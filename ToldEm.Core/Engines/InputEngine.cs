@@ -8,30 +8,46 @@ namespace ToldEm.Core
 {
     class InputEngine
     {
-        public void HandleInput(IHost _host, IGame _game, GameTime gameTime)
+        public void HandleInput(IHost _host, IGame _game, GameTime gameTime, Func<ScreenPoint, GamePoint> GetGamePosition)
         {
             var inputables = _game.Entities.Cast<Entity>().Where(e => e.IsInputable).Cast<IInputable>();
             if (inputables.Any())
             {
-                var state = GetState(_host.InputProvider.InputState, gameTime);
+                var state = GetState(_host.InputProvider.InputState, gameTime, GetGamePosition);
+
+                if (!state.HasInput)
+                {
+                    return;
+                }
+
+                // TODO: Handle Mouse Input
+                foreach (var inputable in inputables)
+                {
+                    if (inputable.HandlesKeyboardInput && state.HasKeyboardInput)
+                    {
+                        inputable.HandleInputCallback(state);
+                    }
+                }
+
+
             }
         }
 
-        private GameInputState _lastState = new GameInputState(new GameTime(0));
+        private GameInputState _lastState = new GameInputState(new GameTime(0), new List<IGameInputValue>(0));
 
         static List<T> CreateEmptyList<T>(T t) { return new List<T>(); }
 
-        private GameInputState GetState(InputState inputState, GameTime gameTime)
+        private GameInputState GetState(InputState inputState, GameTime gameTime, Func<ScreenPoint, GamePoint> GetGamePosition)
         {
             // Create game state
-            var state = new GameInputState(gameTime);
+            var inputValues = new List<IGameInputValue>();
             var timeChange = new GameTimeSpan(gameTime.TotalMilliseconds - _lastState.GameTime.TotalMilliseconds);
 
             inputState.InputValues.ToList().ForEach(v =>
             {
-                var gamePos = GetGamePosition(v.Position);
+                var gamePos = v.Position != null ? GetGamePosition(v.Position) : null;
 
-                state.InputValues.Add(new GameInputValue(false, true, InputChangeType.Down, new GameTimeSpan(),
+                inputValues.Add(new GameInputValue(false, true, InputChangeType.Down, new GameTimeSpan(),
                     v.Type, gamePos, v.KeyValue));
             });
 
@@ -39,7 +55,7 @@ namespace ToldEm.Core
 
             // Find matches
             var oldRemaining = _lastState.InputValues.ToList();
-            var newRemaining = state.InputValues.ToList();
+            var newRemaining = inputValues.ToList();
 
             var maxDistanceForSame = 0.01;
             var maxDistanceForSameSq = maxDistanceForSame * maxDistanceForSame;
@@ -107,25 +123,29 @@ namespace ToldEm.Core
             // Matches are either moving or no change (which was set already)
             // Any that are new are already down (Do nothing)
             // Any that are missing is an up change
-            oldRemaining.ForEach(o => state.InputValues.Add(new GameInputValue(
+            oldRemaining
+                .Where(o=>o.ChangeType != InputChangeType.Up).ToList()
+                .ForEach(o => inputValues.Add(new GameInputValue(
                 false, true, InputChangeType.Up,
                 new GameTimeSpan(o.TimeSinceDown.TotalMilliseconds + timeChange.TotalMilliseconds),
                 o.Type, o.Position, o.KeyValue
                 )));
 
+            var state = new GameInputState(gameTime, inputValues);
+
             _lastState = state;
             return state;
         }
 
-        private double GetDistanceSq(IGamePoint gamePoint1, IGamePoint gamePoint2)
+        private double GetDistanceSq(IGamePoint a, IGamePoint b)
         {
-            throw new NotImplementedException();
+            var dx = b.X - a.X;
+            var dy = b.Y - a.Y;
+
+            return dx * dx + dy * dy;
         }
 
-        private GamePoint GetGamePosition(ScreenPoint screenPoint)
-        {
-            throw new NotImplementedException();
-        }
+
 
 
     }

@@ -8,6 +8,18 @@ namespace ToldEm.Core
 {
     class GraphicsEngine
     {
+        private IScreenSize _screenSize;
+        private double _squareSize;
+        private double _unitSize;
+        private IScreenPoint _midPoint;
+
+        public GamePoint GetGamePosition(ScreenPoint screenPoint)
+        {
+            return new GamePoint(
+                (screenPoint.X - _midPoint.X) / _unitSize,
+                (screenPoint.Y - _midPoint.Y) / _unitSize);
+        }
+
         public void DrawGraphics(IHost _host, IGame _game, bool IsDebugEnabled)
         {
             var drawables = _game.Entities.Cast<Entity>().Where(e => e.IsDrawable).OrderBy(d => d.ZIndex).Cast<IDrawable>().ToList();
@@ -15,9 +27,13 @@ namespace ToldEm.Core
             // Draw graphics
             _host.GraphicsProvider.BeginFrame();
 
-            var sSize = _host.GraphicsProvider.ScreenSize;
-            var squareSize = Math.Min(sSize.Width, sSize.Height);
-            var unitSize = squareSize / 2.0;
+            _screenSize = _host.GraphicsProvider.ScreenSize;
+            _squareSize = Math.Min(_screenSize.Width, _screenSize.Height);
+            _unitSize = _squareSize / 2.0;
+            _midPoint = new ScreenPoint(
+                     (_screenSize.Width) / 2.0,
+                     (_screenSize.Height) / 2.0
+                    );
 
             // Debug
             if (IsDebugEnabled)
@@ -25,13 +41,13 @@ namespace ToldEm.Core
                 _host.GraphicsProvider.DrawDebugRectangle(new ScreenRect()
                 {
                     Point = new ScreenPoint(
-                     (sSize.Width - squareSize) / 2.0,
-                     (sSize.Height - squareSize) / 2.0
+                     (_screenSize.Width - _squareSize) / 2.0,
+                     (_screenSize.Height - _squareSize) / 2.0
                     ),
                     Size = new ScreenSize()
                     {
-                        Width = squareSize,
-                        Height = squareSize
+                        Width = _squareSize,
+                        Height = _squareSize
                     }
                 });
             }
@@ -48,8 +64,8 @@ namespace ToldEm.Core
                 var gameBounds = d.GetBounds();
 
                 // Size
-                var wTarget = gameBounds.Width * unitSize;
-                var hTarget = gameBounds.Height * unitSize;
+                var wTarget = gameBounds.Width * _unitSize;
+                var hTarget = gameBounds.Height * _unitSize;
 
                 var wRatio = wTarget / d._ImageSize.Width;
                 var hRatio = hTarget / d._ImageSize.Height;
@@ -82,8 +98,8 @@ namespace ToldEm.Core
                     : heightGap;
 
                 // Top Left
-                var screenLeft = (gameBounds.Left * unitSize) + (sSize.Width / 2.0);
-                var screenTop = (-gameBounds.Top * unitSize) + (sSize.Height / 2.0);
+                var screenLeft = (gameBounds.Left * _unitSize) + (_screenSize.Width / 2.0);
+                var screenTop = (-gameBounds.Top * _unitSize) + (_screenSize.Height / 2.0);
 
                 var p = new ScreenPoint(screenLeft + offsetLeft, screenTop + offsetTop);
 
@@ -116,7 +132,7 @@ namespace ToldEm.Core
                         start -= s.Width;
 
                         // Go past right of screen while adding
-                        while (start < sSize.Width)
+                        while (start < _screenSize.Width)
                         {
                             positions.Add(start);
                             start += s.Width;
@@ -139,8 +155,8 @@ namespace ToldEm.Core
                     // Position Rect
                     var pos = new ScreenPoint
                     (
-                         ((d as IPlaceable).Position.X * unitSize) + (sSize.Width / 2.0),
-                         (-(d as IPlaceable).Position.Y * unitSize) + (sSize.Height / 2.0)
+                         ((d as IPlaceable).Position.X * _unitSize) + (_screenSize.Width / 2.0),
+                         (-(d as IPlaceable).Position.Y * _unitSize) + (_screenSize.Height / 2.0)
                     );
 
                     _host.GraphicsProvider.DrawDebugRectangle(new ScreenRect() { Point = pos, Size = new ScreenSize() { Width = 1, Height = 10 } });

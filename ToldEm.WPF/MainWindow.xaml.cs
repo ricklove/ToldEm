@@ -36,7 +36,7 @@ namespace ToldEm.WPF
                 return;
             };
 
-            _host = new WPFHost(cvsMain, doLog);
+            _host = new WPFHost(this, cvsMain, doLog);
 
             var g = new ToldEm.Core.GameCore();
 //            g.Setup(_host, new ToldEm.Core.Demo());

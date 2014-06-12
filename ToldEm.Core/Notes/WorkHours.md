@@ -45,19 +45,15 @@ I will implement the input engine to process the input for the game.
 - Move Entity Definitions and generation to separate project
 
 ### 10:03-10:10
-### 10:14-
+### 10:14-11:49
+### 11:53-12:30
+### 12:50-13:00
+### 13:25-13:39
 
 - Implement InputEngine
 - Add Generics support to Entity Generator
-
-
-# FUTURE
-
-## GameCore
-- Add input provider
-	- Inputable (Handles Global Input from InputProvider)
-		- Priority
-		- Callback Handler
+- Add Inputable (Handles Global Input from InputProvider)
+	- Callback Handler
 	- Input Callback Parameters:
 		- Type
 			- Press (Mouse, Tap)
@@ -67,7 +63,15 @@ I will implement the input engine to process the input for the game.
 			- Down, Hold, Up
 			- Value
 			- Position
-	- InputProvider (Must guarantee to send an Up for every Down)
+
+# FUTURE
+
+## GameCore
+
+- Extend InputEngine
+	- Priority
+	- Do GameBounds testing
+
 
 - Convert Screen Coordinates to use ints
 - Add SpineProvider

@@ -14,7 +14,7 @@ namespace ToldEm.WPF
 {
     class WPFInputProvider : IInputProvider
     {
-        private Canvas _target;
+        private Window _target;
 
         private Dictionary<Key, string> _commandAssignments;
         private InputState _inputState;
@@ -55,11 +55,17 @@ namespace ToldEm.WPF
             }
         }
 
-        public WPFInputProvider(Canvas target)
+        public WPFInputProvider(Window target)
         {
             _target = target;
             _commandAssignments = new Dictionary<Key, string>();
             _inputState = new InputState();
+
+
+            _target.CaptureMouse();
+            _target.CaptureStylus();
+            //_target.CaptureTouch();
+            _target.Focus();
 
             _target.KeyDown += _target_KeyDown;
             _target.KeyUp += _target_KeyUp;
@@ -111,14 +117,17 @@ namespace ToldEm.WPF
             }
 
             // Touch input
-            var touchPoints = _lastTouchFrame.GetTouchPoints(_target).ToList();
-
-            touchPoints.ForEach(t =>
+            if (_lastTouchFrame != null)
             {
-                var pos = t.Position;
-                var screenPos = new ScreenPoint(pos.X, pos.Y);
-                _inputState.InputValues.Add(new InputValue(Core.InputType.Touch, screenPos, null));
-            });
+                var touchPoints = _lastTouchFrame.GetTouchPoints(_target).ToList();
+
+                touchPoints.ForEach(t =>
+                {
+                    var pos = t.Position;
+                    var screenPos = new ScreenPoint(pos.X, pos.Y);
+                    _inputState.InputValues.Add(new InputValue(Core.InputType.Touch, screenPos, null));
+                });
+            }
         }
 
         void HandleInputDevice(object sender, InputEventArgs e)

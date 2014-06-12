@@ -47,7 +47,7 @@ namespace ToldEm.Core
         {
             //_host.Log("Tick " + Math.Ceiling(totalMS));
             //_game.Entities.ForEach(e => e.Position.X -= 0.01);
-            _inputEngine.HandleInput(_host, _game, gameTime);
+            _inputEngine.HandleInput(_host, _game, gameTime, _graphicsEngine.GetGamePosition);
         }
     }
 }
