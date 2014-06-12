@@ -46,16 +46,12 @@ namespace ToldEm.Core
         FitType FitType { get; }
 
         [Default("Center, Middle")]
-        Alignment Alignment { get; }
+        IAlignment Alignment { get; }
 
         GameBounds GetBounds();
-    }
 
-    internal interface IDrawableInner : IDrawable
-    {
         IScreenSize _ImageSize { get; set; }
     }
-
 
     // Tiling
     public enum TileDirection

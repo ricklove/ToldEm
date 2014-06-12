@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToldEm.WPF", "ToldEm.WPF\To
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BushRun", "BushRun\BushRun.csproj", "{C3CF2473-0F9A-4F04-8990-042E234357E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToldEm.Definitions", "ToldEm.Definitions\ToldEm.Definitions.csproj", "{BBBB381C-A384-4E90-8B62-01DA24C88148}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{C3CF2473-0F9A-4F04-8990-042E234357E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3CF2473-0F9A-4F04-8990-042E234357E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3CF2473-0F9A-4F04-8990-042E234357E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBBB381C-A384-4E90-8B62-01DA24C88148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBBB381C-A384-4E90-8B62-01DA24C88148}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBBB381C-A384-4E90-8B62-01DA24C88148}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBBB381C-A384-4E90-8B62-01DA24C88148}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

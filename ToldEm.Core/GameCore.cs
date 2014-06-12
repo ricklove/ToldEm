@@ -30,7 +30,7 @@ namespace ToldEm.Core
             _game.Setup();
 
             // Create assets
-            var drawables = _game.Entities.Where(e => e.IsDrawable).OrderBy(d => d.ZIndex).Cast<IDrawableInner>().ToList();
+            var drawables = _game.Entities.Cast<Entity>().Where(e => e.IsDrawable).OrderBy(d => d.ZIndex).Cast<IDrawable>().ToList();
             drawables.ForEach(d =>
             {
                 _host.GraphicsProvider.RegisterImageResource(d.ResourceUrl, d.ResourceUrl);

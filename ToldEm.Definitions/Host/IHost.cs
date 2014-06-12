@@ -23,7 +23,7 @@ namespace ToldEm.Core
 
     public interface IGame
     {
-        List<Entity> Entities { get; }
+        List<IEntity> Entities { get; }
         void Setup();
     }
 

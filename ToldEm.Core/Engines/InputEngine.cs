@@ -10,7 +10,7 @@ namespace ToldEm.Core
     {
         public void HandleInput(IHost _host, IGame _game)
         {
-            var inputables = _game.Entities.Where(e => e.IsInputable).Cast<IInputable>();
+            var inputables = _game.Entities.Cast<Entity>().Where(e => e.IsInputable).Cast<IInputable>();
             //inputables.
         }
     }

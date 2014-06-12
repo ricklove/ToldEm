@@ -105,6 +105,10 @@
       <Project>{96e38731-db0a-42e3-84e4-04b8c8d43b95}</Project>
       <Name>ToldEm.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ToldEm.Definitions\ToldEm.Definitions.csproj">
+      <Project>{bbbb381c-a384-4e90-8b62-01da24c88148}</Project>
+      <Name>ToldEm.Definitions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

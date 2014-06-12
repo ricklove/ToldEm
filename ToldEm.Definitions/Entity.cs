@@ -182,15 +182,16 @@ return c;
 
             // Is Behavior List
             var isList = behaviors
-                .Where(b => b.IsPublic)
+                //.Where(b => b.IsPublic)
                 .Aggregate(new StringBuilder(), (s, b) => s.AppendFormat(isTemplate, b.Name.Substring(1)));
 
             // Make Behavior List
             var makeList = behaviors
-                .Where(b => b.IsPublic)
+                //.Where(b => b.IsPublic)
                 .Aggregate(new StringBuilder(), (s, b) =>
             {
                 var pInfos = from p in b.GetProperties()
+                             where !p.Name.StartsWith("_")
                              let lowerName = char.ToLower(p.Name[0]) + p.Name.Substring(1)
                              let attributes = p.GetCustomAttributes(typeof(DefaultAttribute), false)
                              let defaultValue = attributes.Any() ? attributes.Cast<DefaultAttribute>().First().Value : ""
@@ -211,12 +212,13 @@ return c;
 
             // Clone Props
             var cloneIsValues = behaviors
-                .Where(b => b.IsPublic)
+                //.Where(b => b.IsPublic)
                 .Aggregate(new StringBuilder(), (s, b) => s.AppendFormat(cloneIsItemTemplate, b.Name.Substring(1)));
 
             var cloneStr = string.Format(cloneTemplate, cloneIsValues,
                 allProperties
-                .Where(p => p.Properties.First().DeclaringType.IsPublic)
+                //.Where(p => p.Properties.First().DeclaringType.IsPublic)
+                .Where(p => !p.Name.StartsWith("_"))
                 .Aggregate(new StringBuilder(), (s, p) =>
                 {
                     var prop = p.Properties[0];

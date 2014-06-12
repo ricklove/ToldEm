@@ -39,9 +39,14 @@ I will handle user input
 
 I will implement the input engine to process the input for the game.
 
-### 9:37-
+### 9:37-10:02
 
-- 
+- Add InputEngine
+- Move Entity Definitions and generation to separate project
+
+### 10:03-
+
+- Implement InputEngine
 
 
 

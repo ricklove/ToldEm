@@ -8,11 +8,11 @@ namespace ToldEm.Core
 {
     public abstract class GameBase : IGame
     {
-        public List<Entity> Entities { get; private set; }
+        public List<IEntity> Entities { get; private set; }
 
         public GameBase()
         {
-            Entities = new List<Entity>();
+            Entities = new List<IEntity>();
         }
 
         public abstract void Setup();

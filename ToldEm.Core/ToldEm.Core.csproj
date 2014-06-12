@@ -39,23 +39,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\Inputable.cs" />
-    <Compile Include="Behaviors\Placeable.cs" />
-    <Compile Include="Behaviors\Drawable.cs" />
     <Compile Include="Engines\GraphicsEngine.cs" />
     <Compile Include="Engines\InputEngine.cs" />
+    <Compile Include="EntityCalculatedValues\Entity.GetBounds.cs" />
     <Compile Include="EntityGenerated.cs" />
     <Content Include="Demo.cs.txt" />
-    <Compile Include="Entity.cs" />
     <Compile Include="GameCore.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Host\IInputProvider.cs" />
-    <Compile Include="Host\IGraphicsProvider.cs" />
-    <Compile Include="Host\IHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Notes\WorkHours.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ToldEm.Definitions\ToldEm.Definitions.csproj">
+      <Project>{bbbb381c-a384-4e90-8b62-01da24c88148}</Project>
+      <Name>ToldEm.Definitions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
