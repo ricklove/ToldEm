@@ -72,13 +72,11 @@ I will implement the input engine to process the input for the game.
 	- Priority
 	- Do GameBounds testing
 
-
 - Convert Screen Coordinates to use ints
 - Add SpineProvider
 - Add SoundProvider
 
 ## Bush Run
-- Allow input to control scrolling
 - Create Scrolling Backgrounds
 - Add Player Image
 - Add Lion Image

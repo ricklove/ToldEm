@@ -62,23 +62,25 @@ namespace ToldEm.WPF
             _inputState = new InputState();
 
 
-            _target.CaptureMouse();
-            _target.CaptureStylus();
-            //_target.CaptureTouch();
-            _target.Focus();
+            _target.Loaded += (sender, e) =>
+            {
 
-            _target.KeyDown += _target_KeyDown;
-            _target.KeyUp += _target_KeyUp;
+                _target.PreviewKeyDown += _target_KeyDown;
+                _target.PreviewKeyUp += _target_KeyUp;
 
-            _target.MouseDown += HandleInputDevice;
-            _target.MouseUp += HandleInputDevice;
-            _target.MouseMove += HandleInputDevice;
+                _target.PreviewMouseDown += HandleInputDevice;
+                _target.PreviewMouseUp += HandleInputDevice;
+                _target.PreviewMouseMove += HandleInputDevice;
 
-            //_target.TouchUp += HandleInputDevice;
-            //_target.TouchDown += HandleInputDevice;
-            //_target.TouchMove += HandleInputDevice;
 
-            Touch.FrameReported += Touch_FrameReported;
+                // Touch working as mouse (not able to test multi-touch on this system)
+                //_target.TouchUp += HandleInputDevice;
+                //_target.TouchDown += HandleInputDevice;
+                //_target.TouchMove += HandleInputDevice;
+
+                //Touch.FrameReported += Touch_FrameReported;
+            };
+
         }
 
         private TouchFrameEventArgs _lastTouchFrame;
@@ -100,8 +102,8 @@ namespace ToldEm.WPF
                 if (d is MouseDevice)
                 {
                     var m = d as MouseDevice;
-                    if (_target == m.Captured)
-                    {
+                    //if (_target == m.Captured)
+                    //{
                         if (m.LeftButton == MouseButtonState.Pressed
                             || m.RightButton == MouseButtonState.Pressed
                             || m.MiddleButton == MouseButtonState.Pressed
@@ -112,7 +114,7 @@ namespace ToldEm.WPF
                             var screenPos = new ScreenPoint(pos.X, pos.Y);
                             _inputState.InputValues.Add(new InputValue(Core.InputType.Mouse, screenPos, null));
                         }
-                    }
+                    //}
                 }
             }
 
