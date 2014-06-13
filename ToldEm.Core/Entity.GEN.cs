@@ -92,17 +92,22 @@ namespace ToldEm.Core
 
     }
 
-    public partial class Entity : IEntity, IDrawable, ITileable, IInputable, IPlaceable
+    public partial class Entity : IEntity, IScrollable, IScrolling, IDrawable, ITileable, IInputable, IPlaceable
     {
         // Clone
         public Entity Clone()
         {
             var c = new Entity();
+            c.IsScrollable = IsScrollable;
+            c.IsScrolling = IsScrolling;
             c.IsDrawable = IsDrawable;
             c.IsTileable = IsTileable;
             c.IsInputable = IsInputable;
             c.IsPlaceable = IsPlaceable;
 
+            c.Target = Target;
+            c.Ratio = Ratio;
+            c.Position = (IGamePoint)Position.Clone();
             c.ResourceUrl = (String)ResourceUrl.Clone();
             c.ZIndex = ZIndex;
             c.FitType = FitType;
@@ -110,16 +115,17 @@ namespace ToldEm.Core
             c.TileDirection = TileDirection;
             c.HandlesKeyboardInput = HandlesKeyboardInput;
             c.HandlesGlobalTouchInput = HandlesGlobalTouchInput;
-            c.HandleInputCallback = (Action<GameInputState>)HandleInputCallback.Clone();
+            //c.HandleInputCallback = (Action<GameInputState>)HandleInputCallback.Clone();
             c.Size = (IGameSize)Size.Clone();
             c.Anchor = (IGamePoint)Anchor.Clone();
-            c.Position = (IGamePoint)Position.Clone();
 
             return c;
         }
 
 
         // Behaviors
+        public bool IsScrollable { get; private set; }
+        public bool IsScrolling { get; private set; }
         public bool IsDrawable { get; private set; }
         public bool IsTileable { get; private set; }
         public bool IsInputable { get; private set; }
@@ -127,6 +133,24 @@ namespace ToldEm.Core
 
 
         // Make Behavior 
+        public Entity MakeScrollable(IScrolling target, Double ratio, IGamePoint position)
+        {
+            Target = target;
+            Ratio = ratio;
+            Position = position;
+
+            IsScrollable = true;
+            return this;
+        }
+
+        public Entity MakeScrolling(IGamePoint position)
+        {
+            Position = position;
+
+            IsScrolling = true;
+            return this;
+        }
+
         public Entity MakeDrawable(String resourceUrl, Int32 zIndex, FitType fitType, IAlignment alignment)
         {
             ResourceUrl = resourceUrl;
@@ -169,6 +193,10 @@ namespace ToldEm.Core
 
 
         // Properties
+        public IScrolling Target { get; set; }
+        public Double Ratio { get; set; }
+        public IGamePoint Position { get; set; }
+        public IGamePoint _InitialPosition { get; set; }
         public String ResourceUrl { get; set; }
         public Int32 ZIndex { get; set; }
         public FitType FitType { get; set; }
@@ -180,7 +208,6 @@ namespace ToldEm.Core
         public Action<GameInputState> HandleInputCallback { get; set; }
         public IGameSize Size { get; set; }
         public IGamePoint Anchor { get; set; }
-        public IGamePoint Position { get; set; }
 
 
     }

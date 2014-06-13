@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engines\ScrollEngine.cs" />
     <Compile Include="Engines\GraphicsEngine.cs" />
     <Compile Include="Engines\InputEngine.cs" />
     <Compile Include="EntityCalculatedValues\Entity.GetBounds.cs" />

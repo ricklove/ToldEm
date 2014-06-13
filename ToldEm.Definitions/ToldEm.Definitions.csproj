@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\Scrollable.cs" />
     <Compile Include="Behaviors\Drawable.cs" />
     <Compile Include="Behaviors\Inputable.cs" />
     <Compile Include="Behaviors\Placeable.cs" />

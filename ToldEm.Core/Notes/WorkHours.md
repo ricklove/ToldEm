@@ -64,13 +64,32 @@ I will implement the input engine to process the input for the game.
 			- Value
 			- Position
 
+## Period 4
+
+### 2014-06-13 5:38-5:40 Plan
+
+What is most important to accomplish this hour?
+
+I will finish the scrolling backgrounds to support parallax (scrolling at different rates) controlled by a scrolling controller.
+
+### 5:41-
+
+- Create Scrollable, Scrolling, and ScrollEngine
+
+
+
 # FUTURE
 
 ## GameCore
 
+- Design dependencies on other behaviors 
+	- (Drawable Depends on Placeable)
+	- (Scrollable Depends on Placeable)
+
 - Extend InputEngine
 	- Priority
 	- Do GameBounds testing
+	- Handle KeyUp occuring outside of app
 
 - Convert Screen Coordinates to use ints
 - Add SpineProvider
