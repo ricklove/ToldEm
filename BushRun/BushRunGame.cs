@@ -16,7 +16,7 @@ namespace BushRun
             return entity;
         }
 
-        private Entity Clone( Entity c)
+        private Entity Clone(Entity c)
         {
             var entity = c.Clone();
             Entities.Add(entity);
@@ -25,19 +25,30 @@ namespace BushRun
 
         public override void Setup()
         {
+            double? lastGameTimeMS = null;
+
             var scroller = Create();
             scroller
                 .MakeScrolling(new GamePoint())
                 .MakeInputable(true, true, s =>
                 {
-                    if (s.InputValues.Any(v => v.KeyValue.Direction == KeyDirection.Right))
+                    if (lastGameTimeMS.HasValue)
                     {
-                        scroller.Position.X -= 0.05;
+                        var changePerSecond = 2.0;
+                        var diffSeconds = (s.GameTime.TotalMilliseconds - lastGameTimeMS.Value) / 1000.0;
+
+
+                        if (s.InputValues.Any(v => v.KeyValue.Direction == KeyDirection.Right))
+                        {
+                            scroller.Position.X -= changePerSecond * diffSeconds;
+                        }
+                        else if (s.InputValues.Any(v => v.KeyValue.Direction == KeyDirection.Left))
+                        {
+                            scroller.Position.X += changePerSecond * diffSeconds;
+                        }
                     }
-                    else if (s.InputValues.Any(v => v.KeyValue.Direction == KeyDirection.Left))
-                    {
-                        scroller.Position.X += 0.05;
-                    }
+
+                    lastGameTimeMS = s.GameTime.TotalMilliseconds;
                 });
 
             var background = Create()

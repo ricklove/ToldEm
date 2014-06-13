@@ -72,13 +72,18 @@ What is most important to accomplish this hour?
 
 I will finish the scrolling backgrounds to support parallax (scrolling at different rates) controlled by a scrolling controller.
 
-### 5:41-
+### 5:41-6:25
 
 - Create Scrollable, Scrolling, and ScrollEngine
 
+### 6:26-
+
+- Make inputable consider timespan
 
 
 # FUTURE
+
+- BUG: Resizing messes up scroll position
 
 ## GameCore
 
@@ -94,6 +99,9 @@ I will finish the scrolling backgrounds to support parallax (scrolling at differ
 - Convert Screen Coordinates to use ints
 - Add SpineProvider
 - Add SoundProvider
+
+- Add FPS for performance tracking
+
 
 ## Bush Run
 - Create Scrolling Backgrounds
