@@ -76,23 +76,38 @@ I will finish the scrolling backgrounds to support parallax (scrolling at differ
 
 - Create Scrollable, Scrolling, and ScrollEngine
 
-### 6:26-
+### 6:26-6:35
 
 - Make inputable consider timespan
+
+### 6:36-6:38 Summary
+
+Scrolling is now working and parallax backgrounds based on a scrolling controller tied to user input is working fine. 
+At this point it would be nice to include multiple layers to enjoy the effect.
+
+## Period 5
+
+### 7:45-7:50
+
+- BUG: Resizing messes up scroll position
+	- FIX: This was actually a problem with the time that was passing since button up
+
 
 
 # FUTURE
 
-- BUG: Resizing messes up scroll position
+
 
 ## GameCore
+
+- Make a global variable host (in order to ensure game state is completely freezable)
 
 - Design dependencies on other behaviors 
 	- (Drawable Depends on Placeable)
 	- (Scrollable Depends on Placeable)
 
 - Extend InputEngine
-	- Priority
+	- Add InputValue.TimeSinceLast
 	- Do GameBounds testing
 	- Handle KeyUp occuring outside of app
 

@@ -32,7 +32,7 @@ namespace BushRun
                 .MakeScrolling(new GamePoint())
                 .MakeInputable(true, true, s =>
                 {
-                    if (lastGameTimeMS.HasValue)
+                    if (lastGameTimeMS.HasValue && s.InputValues[0].ChangeType != InputChangeType.Down)
                     {
                         var changePerSecond = 2.0;
                         var diffSeconds = (s.GameTime.TotalMilliseconds - lastGameTimeMS.Value) / 1000.0;
